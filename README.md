@@ -1,8 +1,6 @@
-# BrainMD
+# Enhancing vision-language models for medical imaging: bridging the 3D gap with innovative slice selection
 
-# Selective Annotation Makes Language Models Better Few-Shot Learners
-
-Code for paper [Selective Annotation Makes Language Models Better Few-Shot Learners](http://arxiv.org/abs/2209.01975)
+Code for paper [Enhancing vision-language models for medical imaging: bridging the 3D gap with innovative slice selection]()
 
 <img src="pics/pipeline.png" align="middle" width="75%">
 

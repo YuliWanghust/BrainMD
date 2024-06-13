@@ -10,9 +10,8 @@ Recent approaches to vision-language tasks are built on the remarkable capabilit
 ## Dependencies
 To establish the environment, run this code in the shell:
 ```
-conda env create -f selective_annotation.yml
-conda activate selective_annotation
-cd transformers
+conda env create -f vote_MI.yml
+conda activate vote_MI
 pip install -e .
 ```
 That will create the environment selective_annotation we used.
@@ -23,7 +22,7 @@ That will create the environment selective_annotation we used.
 
 Activate the environment by running
 ```
-conda activate selective_annotation
+conda activate vote_MI
 ```
 
 ### End-to-end pipeline: selection, inference, evaluation

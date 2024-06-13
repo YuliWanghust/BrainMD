@@ -2,25 +2,6 @@
   <b>Patch VAE</b><br>
 </h1>
 
-<p align="center">
-      <a href="https://www.python.org/">
-        <img src="https://img.shields.io/badge/Python-3.5-ff69b4.svg" /></a>
-       <a href= "https://pytorch.org/">
-        <img src="https://img.shields.io/badge/PyTorch-1.3-2BAF2B.svg" /></a>
-       <a href= "https://github.com/AntixK/PyTorch-VAE/blob/master/LICENSE.md">
-        <img src="https://img.shields.io/badge/license-Apache2.0-blue.svg" /></a>
-         <a href= "https://twitter.com/intent/tweet?text=PyTorch-VAE:%20Collection%20of%20VAE%20models%20in%20PyTorch.&url=https://github.com/AntixK/PyTorch-VAE">
-        <img src="https://img.shields.io/twitter/url/https/shields.io.svg?style=social" /></a>
-
-</p>
-
-**Update 22/12/2021:** Added support for PyTorch Lightning 1.5.6 version and cleaned up the code.
-
-A collection of Variational AutoEncoders (VAEs) implemented in pytorch with focus on reproducibility. The aim of this project is to provide
-a quick and simple working example for many of the cool VAE models out there. All the models are trained on the [CelebA dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
-for consistency and comparison. The architecture of all the models are kept as similar as possible with the same layers, except for cases where the original paper necessitates 
-a radically different architecture (Ex. VQ VAE uses Residual layers and no Batch-Norm, unlike other models).
-Here are the [results](https://github.com/AntixK/PyTorch-VAE/blob/master/README.md#--results) of each model.
 
 ### Requirements
 - Python >= 3.5

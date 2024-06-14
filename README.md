@@ -27,9 +27,9 @@ For each data type, the dataset includes the following files:
 
 **Raw_data and Synthesized_data**:
 
-1. pulse_xxxxx_volume.nii.gz  % original volume
-2. pulse_xxxxx_centerline.nii.gz  % extracted centerline
-3. pulse_xxxxx_graph.graphml  % graph with edge information
+1. xxxxx.dcm  % original volume
+2. xxxxx.nii.gz  % extracted centerline
+3. xxxxx.JSON  % graph with edge information
 
 ## Dependencies
 To establish the environment, run this code in the shell:

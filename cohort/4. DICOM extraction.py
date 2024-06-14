@@ -118,12 +118,12 @@ def main(args):
 
 
     ### Filter slices by cohort studies ##################################
-    #df_cohort = pd.read_csv('radfusion3_cohort.csv')
-    df_cohort = pd.read_csv('radfusion3_cohort_w_anon_report.csv')
+    #df_cohort = pd.read_csv('.csv')
+    df_cohort = pd.read_csv('.csv')
     print(df_cohort.shape)
-    df_crosswalk = pd.read_csv('crosswalk-2016-2022.csv')
-    df_crosswalk2 = pd.read_csv('crosswalk-2000-2016.csv')
-    df_crosswalk3 = pd.read_excel('RSNA_Crosswalk.xlsx')
+    df_crosswalk = pd.read_csv('.csv')
+    df_crosswalk2 = pd.read_csv('.csv')
+    df_crosswalk3 = pd.read_excel('.xlsx')
 
     acc2anon = dict(zip(df_crosswalk.accession, df_crosswalk.anon_accession))
     acc2anon.update(dict(zip(df_crosswalk2.ACCESSION, df_crosswalk2.ANON_ACCESSION)))
@@ -143,7 +143,7 @@ def main(args):
     print(f"AnonAcc: {df_cohort.anon_accession.nunique()} / Acc: {df_cohort.Accession.nunique()}" )
     df_cohort = df_cohort[~df_cohort.Accession.isin(acc)]
     print(f"AnonAcc: {df_cohort.anon_accession.nunique()} / Acc: {df_cohort.Accession.nunique()}" )
-    df_cohort.to_csv('radfusion3_cohort_w_filtered.csv', index=False)
+    df_cohort.to_csv('.csv', index=False)
     
     ### Select studies ##################################################
     df = pd.read_csv(args.outfile)
@@ -197,7 +197,7 @@ def main(args):
     df_study = df_study[~df_study.AccessionNumber.isin(remove_acc)]
     print(f'After removing duplicate acc: {df_study.AccessionNumber.nunique()}')
 
-    df_study.to_csv('pe_dicom_meta_study_series_selected.csv', index=False)
+    df_study.to_csv('.csv', index=False)
     print(df_study.num_slices.max(), df_study.num_slices.min())
     print('study_series_selected', df_study.AccessionNumber.nunique(), df_study.SeriesInstanceUID.nunique(), df_study.StudyInstanceUID.nunique())
 
@@ -206,22 +206,22 @@ def main(args):
     print(df.SeriesInstanceUID.nunique())
     df = df[df.SeriesInstanceUID.isin(selected_series)]
     print(df.SeriesInstanceUID.nunique())
-    df.to_csv(f"pe_dicom_meta_cohort.csv", index=False)
+    df.to_csv(f".csv", index=False)
     print(df.num_slices.max(), df.num_slices.min())
     print('instance selected', df.AccessionNumber.nunique(), df.SeriesInstanceUID.nunique(), df.StudyInstanceUID.nunique(), df.shape[0])
 
     # only keep selected studies in cohort
-    df_cohort = pd.read_csv('radfusion3_cohort_w_filtered.csv')
+    df_cohort = pd.read_csv('.csv')
     df_cohort = df_cohort[df_cohort['anon_accession'].isin(df_study.AccessionNumber.unique())]
-    df_cohort.to_csv('radfusion3_cohort_final.csv', index=False)
+    df_cohort.to_csv('.csv', index=False)
     print('cohort', df_cohort['anon_accession'].nunique(), df.shape[0])
 
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dir', type=str, default='/home/mschuang/data/pe_all')
-    parser.add_argument('--outfile', type=str, default='pe_dicom_meta.csv')
+    parser.add_argument('--dir', type=str, default='/home/mschuang/data/brain_all')
+    parser.add_argument('--outfile', type=str, default='.csv')
     args = parser.parse_args()
 
     main(args)

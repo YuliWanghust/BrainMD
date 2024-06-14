@@ -14,9 +14,9 @@ from sklearn import metrics
 # In[ ]:
 
 
-df = pd.read_csv('./imon_results.csv')
+df = pd.read_csv('./results.csv')
 
-LABELS = ['pe_acute', 'pe_subsegmentalonly', 'pe_positive']
+LABELS = ['Brain_acute', 'Brain_subsegmentalonly', 'Brain_positive']
 THRESHOLD = 0.5
 
 for l in LABELS: 
@@ -51,7 +51,7 @@ for idx, labels in enumerate(LABELS):
         label=f'{labels} ROC curve (area = %0.4f)' % roc_auc_v
     )
 '''
-labels = 'positive_pe'
+labels = 'positive_Brain'
 label = df[labels].to_list()
 prob = df[f"{labels}_prob"].to_list()
 fpr_v, tpr_v, _ = metrics.roc_curve(label, prob)

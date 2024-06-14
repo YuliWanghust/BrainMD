@@ -31,10 +31,10 @@ For each data type, the dataset includes the following files:
 2. xxxxx.nii.gz  % extracted centerline
 3. xxxxx.JSON  % graph with edge information
 
-Note:
-./cohort and ./reports contain the code that was used to generate the BrainMD dataset. These programs cannot be run with the full BrianMD dataset as they require identified data, but help illustrate the exact steps we did to form our cohort.
+## Note:
+```./cohort``` and ```./reports``` contain the code that was used to generate the BrainMD dataset. These programs cannot be run with the full BrianMD dataset as they require identified data, but help illustrate the exact steps we did to form our cohort.
 
-./patch_vae and ./representative_select contain the code for the vote-MI for the representative selection. 
+```./patch_vae``` and ```./representative_select``` contain the code for the vote-MI for the representative selection. See the respective README.md in each subfolder to see how to run each component.
 
 ## Dependencies
 To establish the environment, run this code in the shell:

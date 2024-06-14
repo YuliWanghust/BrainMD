@@ -1,4 +1,4 @@
-# Define INSPECT Cohort
+# Define BrainMD Cohort
 
 To generate cohort from BrainMD dataset: 
 - **1. Cohort definition.py** to define cohort for ultimate dataset

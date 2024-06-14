@@ -10,7 +10,7 @@ import pandas as pd
 # In[ ]:
 
 
-df_cohort = pd.read_csv('./radfusion3_cohort.csv')
+df_cohort = pd.read_csv('./.csv')
 
 
 # ### Read in RIT provided reports and format column names 
@@ -18,7 +18,7 @@ df_cohort = pd.read_csv('./radfusion3_cohort.csv')
 # In[ ]:
 
 
-df_report_1 = pd.read_csv('/Users/marshuang/Labs/Lungren/PE_CT_data_cleaning/stanford/pe_radreports_00_16.csv', sep='\t', dtype={'ACCESSION_NUMBER': object})
+df_report_1 = pd.read_csv('.csv', sep='\t', dtype={'ACCESSION_NUMBER': object})
 df_report_1 = df_report_1.rename(columns={"ACCESSION_NUMBER": "Accession", 'REPORT': 'Report', 'RAD_DATE': 'Report_Date'})
 
 # Assume your dataframe is df and the column with dates is 'date_column'
@@ -31,7 +31,7 @@ df_report_1['Report_Date'] = df_report_1['Report_Date'].dt.strftime('%Y-%m-%d %H
 # In[ ]:
 
 
-df_report_2 = pd.read_csv('/Users/marshuang/Labs/Lungren/PE_CT_data_cleaning/stanford/pe_radreports_16_22.csv')
+df_report_2 = pd.read_csv('.csv')
 df_report_2 = df_report_2.rename(columns={"accession_number": "Accession", 'report': 'Report', 'result_time': 'Report_Date'})
 
 df_report_2['Report'] = df_report_2['Report'].apply(lambda x: x.replace('\n', ''))
@@ -166,19 +166,19 @@ print(f'Final cohort size: {df_cohort.shape[0]}')
 # In[ ]:
 
 
-df_cohort = pd.read_csv('./radfusion3_cohort_final.csv')
-csv_to_bq_table('./radfusion3_cohort_final.csv', 'som-nero-phi-nigam-starr', 'pulmonary_embolisms', 'radfusion3_cohort_final')
+df_cohort = pd.read_csv('..csv')
+csv_to_bq_table('..csv', 'som-nero-phi-nigam-starr', 'pulmonary_embolisms', 'radfusion3_cohort_final')
 
 
 # In[ ]:
 
 
-df_rsna = pd.read_csv('../data/stanford_studies_in_rsna_train_with_labels.csv', dtype={'Mrn': object, 'Acc': object})
-df_rsna['pe_label'] = df_rsna['negative_exam_for_pe'].apply(lambda x: 1 if x == 0 else 0)
-acc2pe = dict(zip(df_rsna.Acc, df_rsna.pe_label))
-acc2central = dict(zip(df_rsna.Acc, df_rsna.central_pe))
+df_rsna = pd.read_csv('..csv', dtype={'Mrn': object, 'Acc': object})
+df_rsna['Brain_label'] = df_rsna['negative_exam_for_pe'].apply(lambda x: 1 if x == 0 else 0)
+acc2pe = dict(zip(df_rsna.Acc, df_rsna.Brain_label))
+acc2central = dict(zip(df_rsna.Acc, df_rsna.central_Brain))
 
-#df_nlp[['RadfusionPELabel', ]]
+#df_nlp[['RadfusionBrainLabel', ]]
 df_rsna.columns
 
 
@@ -186,19 +186,16 @@ df_rsna.columns
 
 
 df_nlp = df_cohort[(df_cohort.RSNA == True) | (df_cohort.Radfusion == True)]
-df_nlp['rsna_positive_pe'] = df_nlp['Accession'].apply(lambda x: acc2pe[x] if x in acc2pe else None)
-df_nlp['rsna_central_pe'] = df_nlp['Accession'].apply(lambda x: acc2pe[x] if x in acc2central else None)
+df_nlp['rsna_positive_Brain'] = df_nlp['Accession'].apply(lambda x: acc2pe[x] if x in acc2pe else None)
+df_nlp['rsna_central_Brain'] = df_nlp['Accession'].apply(lambda x: acc2pe[x] if x in acc2central else None)
 
 
 # In[ ]:
 
 
-df_nlp = df_nlp[['anon_accession', 'AnonReport', 'AnonImpression', 'RadfusionPELabel', 'RadfusionPEType', 'rsna_positive_pe', 'rsna_central_pe']]
-df_nlp['RadfusionCentralPE'] = df_nlp['RadfusionPEType'].apply(lambda x: 1 if x == 'central' else 0)
-df_nlp['positive_pe'] = df_nlp.apply(lambda x: x.rsna_positive_pe if x.RadfusionPELabel != x.RadfusionPELabel else x.RadfusionPELabel, axis=1)
-df_nlp['central_pe'] = df_nlp.apply(lambda x: x.rsna_central_pe if x.RadfusionCentralPE != x.RadfusionCentralPE else x.RadfusionCentralPE, axis=1)
 
-df_nlp = df_nlp[['anon_accession', 'AnonReport', 'AnonImpression', 'positive_pe', 'central_pe']]
+
+df_nlp = df_nlp[['anon_accession', 'AnonReport', 'AnonImpression', 'positive', 'central']]
                  
 
 
@@ -216,9 +213,9 @@ df_nlp.Split.value_counts()
 # In[ ]:
 
 
-df_nlp[df_nlp.Split == 'train'].to_csv('rsna_radfusion/rsna_radfusion_longformer_train.csv')
-df_nlp[df_nlp.Split == 'val'].to_csv('rsna_radfusion/rsna_radfusion_longformer_val.csv')
-df_nlp[df_nlp.Split == 'test'].to_csv('rsna_radfusion/rsna_radfusion_longformer_test.csv')
+df_nlp[df_nlp.Split == 'train'].to_csv('train.csv')
+df_nlp[df_nlp.Split == 'val'].to_csv('.csv')
+df_nlp[df_nlp.Split == 'test'].to_csv('.csv')
 
 
 # In[ ]:
@@ -542,5 +539,5 @@ df_cohort['AnonReport'] = df_cohort['Accession'].apply(lambda x: acc2anon_report
 # In[ ]:
 
 
-df_cohort.to_csv('./radfusion3_cohort_w_anon_report.csv', index=False)
+df_cohort.to_csv('.csv', index=False)
 

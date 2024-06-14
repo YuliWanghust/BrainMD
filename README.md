@@ -19,8 +19,8 @@ The BrainMD dataset is available [here](https://livejohnshopkins-my.sharepoint.c
 
 | Type                      | No. (cases) | Format     | Access Link |
 | --------------------------| ------------| ---------- | ------------|
-| BrainMD (3D MRI)          | 2453        | DICOM      | [link]()    |
-| BrainMD-select (2D MRI)   | 2453        | NIFTI      | [link]()    |
+| BrainMD (3D MRI)          | 2453        | DICOM      | [link](https://livejohnshopkins-my.sharepoint.com/:f:/g/personal/ywang687_jh_edu/Ep7H2R0DYD5Mt0ZYJqV8tmoBIt3VBMmYmIrfeuBt_cyGIg?e=vd99Wi)    |
+| BrainMD-select (2D MRI)   | 2453        | NIFTI      | [link](https://livejohnshopkins-my.sharepoint.com/:f:/g/personal/ywang687_jh_edu/Ei4JwF9UQidBr2YqElGv7NAB7JOGL08TsiqcPY4clDxtaQ?e=Q8xaZD)    |
 | BrainBench (text)         | 2453        | CSV/JSON   | [link]()    |
 
 For each data type, the dataset includes the following files:

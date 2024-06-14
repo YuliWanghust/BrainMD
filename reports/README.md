@@ -1,7 +1,5 @@
-# Pulmonary Embolism NLP Models 
+# BrainBench process code
 
-To train the PE NLP Labeler: 
-- follow **R1. Anonymize CTPA Notes.py** to anonymize and create impressions. 
-- run **train_labeler.sh** to train model
-- run **test_labeler.sh** to test model 
-- follow **R2. Longformer Results** to interpret results and get performance metrics
+To process the Brain radiology report for the VLM downstream task: 
+- follow **1. Anonymize_brain_tumor_textual_info.py** to anonymize and extract impressions. 
+- follow **2. Compare_visual_Rrsults** to interpret results and get performance metrics

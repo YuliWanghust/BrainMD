@@ -23,13 +23,13 @@ The BrainMD dataset is available [here](https://livejohnshopkins-my.sharepoint.c
 | BrainMD-select (2D MRI)   | 2453        | NIFTI      | [link](https://livejohnshopkins-my.sharepoint.com/:f:/g/personal/ywang687_jh_edu/Ei4JwF9UQidBr2YqElGv7NAB7JOGL08TsiqcPY4clDxtaQ?e=Q8xaZD)    |
 | BrainBench (text)         | 2453        | CSV/JSON   | [link](https://livejohnshopkins-my.sharepoint.com/:u:/g/personal/ywang687_jh_edu/Ee-hBGNtuL5Gv_CnLrMz79gBTiniGwoEjr16HYXOKMcXHw?e=YeRcnJ)    |
 
-For each data type, the dataset includes the following files:
+For each data type, the example of dataset includes the following files (conatc the PI for the data user agreement for the full dataset):
 
-**Raw_data and Synthesized_data**:
+**Dataset organizations**:
 
-1. xxxxx.dcm  % original volume
-2. xxxxx.nii.gz  % extracted centerline
-3. xxxxx.JSON  % graph with edge information
+1. xxxxx.dcm  % original high-resolution brain tumor MRI volume
+2. xxxxx.nii.gz  % extracted representative slides from radiologists or Vote-MI
+3. xxxxx.JSON  % example of text/radiology report information
 
 ## Note:
 ```./cohort``` and ```./reports``` contain the code that was used to generate the BrainMD dataset. These programs cannot be run with the full BrianMD dataset as they require identified data, but help illustrate the exact steps we did to form our cohort.
@@ -55,11 +55,10 @@ conda activate vote_MI
 ```
 
 ### End-to-end pipeline: selection, inference, evaluation
-GPT-J as the in-context learning model, DBpedia as the task, and vote-k as the selective annotation method (1 GPU, 40GB memory)
+Med-Flamingo as the vision language model and vote-MI as the selective annotation method (1 GPU, 40GB memory)
 ```
-python main.py --task_name dbpedia_14 --selective_annotation_method votek --model_cache_dir models --data_cache_dir datasets --output_dir outputs
+python main.py --task_name xxx --selective_annotation_method vote-MI --model_cache_dir models --data_cache_dir datasets --output_dir outputs
 ```
 
 ## Citation
 If you find our work helpful, please cite us
-```

@@ -28,11 +28,6 @@ from collections import Counter, defaultdict
 
 import os
 
-USER = "mschuang@stanford.edu"
-CREDENTIALS = os.path.expanduser(f"~/.config/gcloud/legacy_credentials/{USER}/adc.json")
-PROJECT = "som-nero-phi-nigam-starr"
-DATASET = "shahlab_omop_cdm5_subset_2023_03_05"
-
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS
 os.environ["GCLOUD_PROJECT"] = PROJECT
 
@@ -127,7 +122,7 @@ client = bigquery.Client()
 
 
 query = """\
-    SELECT * from som-nero-phi-nigam-starr.shahlab_omop_cdm5_subset_2023_03_05.person
+    SELECT * from .person
 """
 # person = query_starr_omop(query, client)
 person["MRN"] = person["person_source_value"].apply(
@@ -160,7 +155,7 @@ df.shape
 
 query = """\
     SELECT *
-    FROM `som-nero-phi-nigam-starr.femr.splits_omop_2023_03_05`
+    FROM ``
 """
 df_split = query_starr_omop(query, client)
 
@@ -727,14 +722,14 @@ df_val.columns = [
 # In[ ]:
 
 
-df_train.to_csv("./imon_cohort_anon/train.csv", index=False)
-df_val.to_csv("./imon_cohort_anon/val.csv", index=False)
-df_test.to_csv("./imon_cohort_anon/test.csv", index=False)
+df_train.to_csv("./train.csv", index=False)
+df_val.to_csv("./val.csv", index=False)
+df_test.to_csv("./test.csv", index=False)
 
 
 # In[ ]:
 
 
 pd.concat([df_train, df_val, df_test]).to_csv(
-    "./imon_cohort_anon/imon_cohort_all.csv", index=False
+    "./imon_cohort_anon/.csv", index=False
 )

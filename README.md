@@ -17,12 +17,11 @@ The BrainMD dataset is available [here](). It consists of the following data spl
 
 ### Data Structure
 
-| Type (graphs based imgs) | Train  | Validation | Test  |
-| -------------------------| ------ | ---------- | ----- |
-| ASCOS                    | 28     | 4          | 8     |
-| ImageCAS                 | 140    | 20         | 40    |
-| Ours                     | 0      | 0          | 10    |
-| Sythesized               | 2688   | 384        | 928   |
+| Type                      | No. (cases) | Format     | Access Link |
+| --------------------------| ------------| ---------- | ------------|
+| BrainMD (3D MRI)          | 2453        | DICOM      | [link]()    |
+| BrainMD-select (2D MRI)   | 2453        | NIFTI      | [link]()    |
+| BrainBench (text)         | 2453        | CSV/JSON   | [link]()    |
 
 For each data type, the dataset includes the following files:
 

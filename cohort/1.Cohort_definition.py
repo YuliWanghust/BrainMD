@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Format CTPA cohort 2016-2022
-# 
-# ### Required files
-# - https://stanfordmedicine.app.box.com/file/1086939442645?s=dyyvma87ppxzenbeye45z2er7yszwjml
-# - aimi-nero-phi-mlungren-msicphi.ctpe_mars_datapull.ctpe_Radreports
-
 # In[ ]:
 
 
@@ -31,10 +25,10 @@ from collections import Counter, defaultdict
 
 import os 
 
-USER        = "mschuang@stanford.edu"
-CREDENTIALS = os.path.expanduser(f"~/.config/gcloud/legacy_credentials/{USER}/adc.json")
-PROJECT     = "som-nero-phi-nigam-starr"
-DATASET     = "shahlab_omop_cdm5_subset_2023_03_05"
+USER        = " "
+CREDENTIALS = os.path.expanduser(f" ")
+PROJECT     = " "
+DATASET     = " "
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = CREDENTIALS
 os.environ['GCLOUD_PROJECT'] = PROJECT
@@ -187,10 +181,10 @@ print(f"Numver of patient with overlaps: {d[d.mrn_date > 1].shape[0]}")
 # In[ ]:
 
 
-df = pd.read_csv('../data/ctpe_Radreports.csv')
+df = pd.read_csv('../data/.csv')
 df.head(5)
 
-df_mapping = pd.read_csv('../data/crosswalk-2016-2022.csv', dtype={'mrn': object})
+df_mapping = pd.read_csv('../data/.csv', dtype={'mrn': object})
 acc2mrn = dict(zip(df_mapping.accession, df_mapping.mrn))
 
 df['mrn'] = df['accession_number'].apply(lambda x: acc2mrn[x] if x in acc2mrn else None)
@@ -201,54 +195,7 @@ df = df.rename(columns={'mrn': 'MRN'})
 df.head(5)
 
 
-# ### Link study to STARR by finding closest procedure_datetime
-# 
-# Using ordering_date due to the smallest days offset: 
-# 
-# **ordering_date**
-# 
-# - Total studies:         18116
-# 
-# - Final Linked Orders (±10 days): 18058 
-# 
-# - Mean/SD Days Offset:            0.0 (0.0)
-# 
-# - Final Missing Orders:           58 
-# 
-# 
-# **proc_start_time**
-# 
-# - Total studies:         18116
-# 
-# - Final Linked Orders (±10 days): 18057 
-# 
-# - Mean/SD Days Offset:            0.0 (0.1)
-# 
-# - Final Missing Orders:           59 
-# 
-# 
-# 
-# **proc_end_time**
-# 
-# - Total studies:         18116
-# 
-# - Final Linked Orders (±10 days): 18019 
-# 
-# - Mean/SD Days Offset:            0.1 (0.4)
-# 
-# - Final Missing Orders:           97 
-# 
-# 
-# **result_time**
-# 
-# - Total studies:         18116
-# 
-# - Final Linked Orders (±10 days): 17888 
-# 
-# - Mean/SD Days Offset:            0.5 (1.0)
-# 
-# - Final Missing Orders:           228 
-# 
+
 
 # In[ ]:
 
@@ -349,7 +296,7 @@ print(f'Number of patients with same datetime : {d[d.mrn_date > 1].shape[0]}')
 # In[ ]:
 
 
-df_legacy = pd.read_csv('../data/radfusion_3.0_orderproc_cohort_10d_delta.csv', dtype={'mrn': object})
+df_legacy = pd.read_csv('../data/.csv', dtype={'mrn': object})
 df_legacy['Accession'] = df_legacy['ACCESSION_NUMBER'].apply(lambda x: str(int(x)) if not math.isnan(x) else x)
 del df_legacy['ACCESSION_NUMBER']
 df_legacy = df_legacy[['MRN', 'person_id', 'Accession', 'order_proc_id', 'procedure_DATETIME', 'delta']]
@@ -393,7 +340,7 @@ import pandas as pd
 
 
 # get mapping
-crosswalk = pd.read_csv('../data/crosswalk-2000-2016.csv')
+crosswalk = pd.read_csv('../.csv')
 anon2acc = dict(zip(crosswalk.ANON_ACCESSION, crosswalk.ACCESSION))
 mrn2anon = dict(zip(crosswalk.MRN, crosswalk.ANON_MRN))
 
@@ -413,7 +360,7 @@ pickle.dump(mrn2anon, open('mrn_anon_mapping.pkl', 'wb'))
 
 
 # find accessions with dicoms
-df_dicoms = pd.read_csv('../data/stanford_instance_metadata_from_dicom_nigam_partition.csv')
+df_dicoms = pd.read_csv('../.csv')
 df_dicoms[~df_dicoms.filepath.isna()]
 
 df_dicoms['Acc'] = df_dicoms['AnonAcc'].apply(lambda x: anon2acc[x] if x in anon2acc else None)
@@ -470,7 +417,7 @@ df = df[df.Split != 'missing']
 # In[ ]:
 
 
-df_rsna = pd.read_csv('../data/stanford_studies_in_rsna_train_with_labels.csv', dtype={'Mrn': object, 'Acc': object})
+df_rsna = pd.read_csv('...csv', dtype={'Mrn': object, 'Acc': object})
 rsna_accs = set(df_rsna.Acc.to_list())
 df['RSNA'] = df['Accession'].apply(lambda x: True if x in rsna_accs else False)
 df['RSNA'].value_counts()
@@ -479,7 +426,7 @@ df['RSNA'].value_counts()
 # In[ ]:
 
 
-df_rsna_all = pd.read_csv('../data/stanford_studies_in_rsna.csv')
+df_rsna_all = pd.read_csv('..')
 df_rsna_test = df_rsna_all[df_rsna_all.Split != 'train']
 
 print(f"test count: {df_rsna_test.shape[0]}/{df_rsna_all.shape[0]}")
@@ -489,7 +436,7 @@ print(f"test count: {df_rsna_test.shape[0]}/{df_rsna_all.shape[0]}")
 
 
 # Check if all studies from RSNA are in train split
-rsna_train = pd.read_csv('/Users/marshuang/Labs/Lungren/PE_CT_data_cleaning/rsna/train.csv')
+rsna_train = pd.read_csv('/.csv')
 
 assert df_rsna[~df_rsna.StudyInstanceUID.isin(rsna_train.StudyInstanceUID)].shape[0] == 0
 
@@ -499,7 +446,7 @@ assert df_rsna[~df_rsna.StudyInstanceUID.isin(rsna_train.StudyInstanceUID)].shap
 # In[ ]:
 
 
-df_rad  = pd.read_csv('../data/stanford_1815_cohort_w_report.csv', dtype={'Mrn': object, 'Acc': object})
+df_rad  = pd.read_csv('...csv', dtype={'Mrn': object, 'Acc': object})
 rad_accs = set(df_rad.Acc.tolist())
 acc_2_split = {str(row.Acc): row.Split for idx, row in df_rad.iterrows()}
 acc_2_subseg = {str(row.Acc): row.Subseg for idx, row in df_rad.iterrows()}
@@ -627,5 +574,5 @@ df_cohort = df[
     (df.DICOM == True) & 
     (df.Split != 'remove')
 ]
-df_cohort.to_csv('radfusion3_cohort.csv', index=False)
+df_cohort.to_csv('.csv', index=False)
 

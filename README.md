@@ -13,7 +13,7 @@ For those unfamiliar with brain MRI data, please refer to the following example.
 
 ## Dataset
 
-The BrainMD dataset is available [here](). It consists of the following data splits:
+The BrainMD dataset is available [here](https://livejohnshopkins-my.sharepoint.com/:f:/g/personal/ywang687_jh_edu/EnrT6QG--7VPn9Fynb6DhIEBHlLlc0-KXtA46ff4VeatfA?e=Npiiqk). It consists of the following data splits:
 
 ### Data Structure
 

@@ -49,100 +49,6 @@ def expand_to_aliases(given_answers, make_sub_answers=False):
         answers.append(' '.join(alias.split()).strip())
     return set(answers)
 
-table_prompt = """
-CREATE TABLE hotel(
-  name text,
-  pricerange text CHECK (pricerange IN (dontcare, cheap, moderate, expensive)),
-  type text CHECK (type IN (hotel, guest house)),
-  parking text CHECK (parking IN (dontcare, yes, no)),
-  book_stay int,
-  book_day text,
-  book_people int,
-  area text CHECK (area IN (dontcare, centre, east, north, south, west)),
-  stars int CHECK (stars IN (dontcare, 0, 1, 2, 3, 4, 5)),
-  internet text CHECK (internet IN (dontcare, yes, no))
-)
-/*
-4 example rows:
-SELECT * FROM hotel LIMIT 4;
-name  pricerange  type  parking book_stay book_day  book_people area  stars internet
-a and b guest house moderate  guest house  dontcare  3 friday  5 east  4 yes
-ashley hotel  expensive hotel yes 2 thursday  5 north 5 yes
-el shaddia guest house  cheap guest house  yes 5 friday  2 centre  dontcare  no
-express by holiday inn cambridge  dontcare  guest house yes 3 monday  2 east  dontcare  no
-*/
-
-CREATE TABLE train(
-  destination text,
-  departure text,
-  day text,
-  book_people int,
-  leaveat text,
-  arriveby text
-)
-/*
-3 example rows:
-SELECT * FROM train LIMIT 3;
-destination departure day book_people leaveat arriveby
-london kings cross  cambridge monday  6 dontcare 05:51
-cambridge stansted airport  dontcare  1 20:24 20:52
-peterborough  cambridge saturday  2  12:06  12:56
-*/
-
-CREATE TABLE attraction(
-  name text,
-  area text CHECK (area IN (dontcare, centre, east, north, south, west)),
-  type text CHECK (type IN (architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre))
-)
-/*
-4 example rows:
-SELECT * FROM attraction LIMIT 4;
-name area type
-abbey pool and astroturf pitch  centre  swimming pool
-adc theatre centre  theatre
-all saints church dontcare  architecture
-castle galleries  centre  museum
-*/
-
-CREATE TABLE restaurant(
-  name text,
-  food text,
-  pricerange text CHECK (pricerange IN (dontcare, cheap, moderate, expensive)),
-  area text CHECK (area IN (centre, east, north, south, west)),
-  book_time text,
-  book_day text,
-  book_people int
-)
-/*
-5 example rows:
-SELECT * FROM restaurant LIMIT 5;
-name  food  pricerange  area  book_time book_day  book_people
-pizza hut city centre italian dontcare centre  13:30 wednesday 7
-the missing sock  international moderate  east  dontcare dontcare  2
-golden wok chinese moderate north 17:11 friday 4
-cambridge chop house  dontcare  expensive  center 08:43 monday  5
-darrys cookhouse and wine shop  modern european expensive center  11:20 saturday  8
-*/
-
-CREATE TABLE taxi(
-  destination text,
-  departure text,
-  leaveat text,
-  arriveby text
-)
-/*
-3 example rows:
-SELECT * FROM taxi LIMIT 3;
-destination departure leaveat arriveby
-copper kettle royal spice 14:45 15:30
-magdalene college  university arms hotel dontcare  15:45
-lovell lodge  da vinci pizzeria 11:45 dontcare
-*/
-
--- Using valid SQLite, answer the following multi-turn conversational questions for the tables provided above.
-
-"""
-
 def slot_values_to_seq_sql(original_slot_values, single_answer=False):
     sql_str = ""
     tables = OrderedDict()
@@ -287,9 +193,6 @@ def check_prefix_suffix(value, candidates):
     # add/delete "the" in the front, or the suffix in the end.
     if value in candidates:
         return value
-    prefixes = ['the ']
-    suffixes = [" hotel", " restaurant", ' cinema', ' guest house',
-                " theatre", " airport", " street", ' gallery', ' museum']
     for prefix in prefixes:
         if value.startswith(prefix):
             value = value[len(prefix):]
@@ -304,72 +207,6 @@ def check_prefix_suffix(value, candidates):
             if possible_value in candidates:
                 return possible_value
     return ''
-
-def typo_fix(slot_values, ontology, version="2.1"):
-
-    # fix the named entities in these slots
-    named_entity_slots = ['hotel-name', 'train-destination', 'train-departure',
-                          'attraction-type', 'attraction-name',
-                          'restaurant-name', 'taxi-departure', 'taxi-destination', 'restaurant-food']
-    fixed = {}
-    for slot, value in slot_values.items():
-        # fix 's
-        value = value.replace(' s ', 's ')
-        if value.endswith(' s'):
-            value = value[:-2] + 's'
-
-        # fix typo words
-        general_typos = {'fen ditton': 'fenditton',
-                         'guesthouse': 'guest house',
-                         'steveage': 'stevenage',
-                         'stantsted': 'stansted',
-                         'storthford': 'stortford',
-                         'shortford': 'stortford',
-                         'weish': 'welsh',
-                         'bringham': 'birmingham',
-                         'liverpoool': 'liverpool',
-                         'petersborough': 'peterborough',
-                         'el shaddai': 'el shaddia',
-                         'wendesday': 'wednesday',
-                         'brazliian': 'brazilian',
-                         'graffton': 'grafton'}
-        for k, v in general_typos.items():
-            value = value.replace(k, v)
-
-        # fix whole value
-        value_replacement = {'center': 'centre',
-                             'caffe uno': 'cafe uno',
-                             'caffee uno': 'cafe uno',
-                             'christs college': 'christ college',
-                             'churchill college': 'churchills college',
-                             'sat': 'saturday',
-                             'saint johns chop shop house': 'saint johns chop house',
-                             'good luck chinese food takeaway': 'good luck',
-                             'asian': 'asian oriental',
-                             'gallery at 12': 'gallery at 12 a high street'}
-
-        if version == "2.1":
-            value_replacement['portuguese'] = 'portugese'
-            value_replacement['museum of archaeology and anthropology'] = 'museum of archaelogy and anthropology'
-
-        if version == "2.4":
-            value_replacement['portugese'] = 'portuguese'
-            value_replacement['museum of archaelogy and anthropology'] = 'museum of archaeology and anthropology'
-
-        for k, v in value_replacement.items():
-            if value == k:
-                value = v
-
-        # time format fix  9:00 -> 09:00
-        if ':' in value and len(value) < 5:
-            value = '0' + value
-
-        if slot in named_entity_slots:
-            value = check_prefix_suffix(value, ontology[slot])
-
-        if value:
-            fixed[slot] = value
-    return fixed
 
 def compute_acc(gold, pred, n_slot=30):
 

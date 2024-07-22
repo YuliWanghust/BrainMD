@@ -65,18 +65,3 @@ logging_params:
 $ cd logs/<experiment name>/version_<the version you want>
 $ tensorboard --logdir .
 ```
-
-**Note:** The default dataset is CelebA. However, there has been many issues with downloading the dataset from google drive (owing to some file structure changes). So, the recommendation is to download the [file](https://drive.google.com/file/d/1m8-EBPgi5MRubrm6iQjafK2QMHDBMSfJ/view?usp=sharing) from google drive directly and extract to the path of your choice. The default path assumed in the config files is `Data/celeba/img_align_celeba'. But you can change it acording to your preference.
-
-
-----
-<h2 align="center">
-  <b>Results</b><br>
-</h2>
-
-
-### Contributing
-If you have trained a better model, using these implementations, by fine-tuning the hyper-params in the config file,
-I would be happy to include your result (along with your config file) in this repo, citing your name 😊.
-
-Additionally, if you would like to contribute some models, please submit a PR.

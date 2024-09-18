@@ -54,10 +54,10 @@ Activate the environment by running
 conda activate vote_MI
 ```
 
-### End-to-end pipeline: selection, inference, evaluation
-Med-Flamingo as the vision language model and vote-MI as the selective annotation method (1 GPU, 40GB memory)
+### Pipeline: selection, inference, evaluation
+Med-Flamingo as the vision language model and vote-MI as the selective annotation method
 ```
-python main.py --task_name xxx --selective_annotation_method vote-MI --model_dir models --data_dir datasets --output_dir outputs
+python main.py --task_name xxx --selective_annotation_method vote-MI
 ```
 
 ## Citation

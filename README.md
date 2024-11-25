@@ -57,7 +57,7 @@ conda activate vote_MI
 ### Pipeline: selection, inference, evaluation
 Med-Flamingo as the vision language model and vote-MI as the selective annotation method
 ```
-python main.py --task_name xxx --selective_annotation_method vote-MI
+python main.py --task_name xxx
 ```
 
 ## Citation

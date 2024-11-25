@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Analyze Results from LongFormer Model
-
-# In[ ]:
 
 
 import pandas as pd

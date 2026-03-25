@@ -1,6 +1,6 @@
 # Enhancing vision-language models for medical imaging: bridging the 3D gap with innovative slice selection
 
-Code for paper [Enhancing vision-language models for medical imaging: bridging the 3D gap with innovative slice selection]()
+Code for paper [Enhancing vision-language models for medical imaging: bridging the 3D gap with innovative slice selection](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b53513b83232116ae25f57a174a7c993-Abstract-Datasets_and_Benchmarks_Track.html)
 
 <img src="Pics/framework.png" align="middle" width="75%">
 
